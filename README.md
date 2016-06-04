@@ -6,7 +6,7 @@ pre-requirements for windows:
 mingw packages: 32base msysbase developer-tools
 powershell
 
-for *nix replace the powershell with bc float-point calculation (or make defaule static)
+for *nix replace the powershell with bc float-point calculation (or make default static)
 
-assumes that audio.mp3 and video.mp4 are in the same folder, asks simple questions with defaults available
+Latest ".mp3" and ".mp4" are assumed, asks simple questions with defaults available
 check details in the comments of the script itself
