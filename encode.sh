@@ -48,7 +48,7 @@ then
   cp "$video" stream_video.mp4
 else
   for i in $(seq 1 ${num}); do printf "file '%s'\n" "$video" >> mylist.txt; done
-  ffmpeg -f concat -i mylist.txt -c copy stream_video.mp4 
+  ffmpeg -ss 0 -t ${duration} -f concat -i mylist.txt -c copy stream_video.mp4 
 fi
 
 # combining audio+video cropping to user-defined length
