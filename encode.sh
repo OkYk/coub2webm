@@ -21,7 +21,7 @@ fi
 if [[ "$3" != "" ]]; then 
 	filename="$3"
 fi
-filename=${filename:-res.webm}
+filename=${filename:-res}
 
 wait
 
@@ -82,6 +82,7 @@ ffmpeg -i stream_video_cut.mp4 -i stream_audio.mp3 -c:v copy -c:a aac -strict ex
 
 # 2-pass encoding with everything in place to $filename.webm
 ffmpeg -i output.mp4 -codec:v libvpx -quality good -cpu-used 0 -b:v ${rate}k -maxrate ${rate}k -bufsize `expr ${rate} \* 2`k -qmin 10 -qmax 42 -vf scale=-1:${scale} -threads 4 -strict -2 -codec:a vorbis -b:a 128k -an -pass 1 -f webm -y /dev/null
-ffmpeg -i output.mp4 -codec:v libvpx -quality good -cpu-used 0 -b:v ${rate}k -maxrate ${rate}k -bufsize `expr ${rate} \* 2`k -qmin 10 -qmax 42 -vf scale=-1:${scale} -threads 4 -strict -2 -codec:a vorbis -b:a 128k -pass 2 $filename.webm
+[[ "$filename" =~ "^[0-9a-z]{5}$" ]] && title="https://coub.com/view/$filename"
+ffmpeg -i output.mp4 -metadata title="$title" -codec:v libvpx -quality good -cpu-used 0 -b:v ${rate}k -maxrate ${rate}k -bufsize `expr ${rate} \* 2`k -qmin 10 -qmax 42 -vf scale=-1:${scale} -threads 4 -strict -2 -codec:a vorbis -b:a 128k -pass 2 $filename.webm
 clear_workspace
 
